@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Player</h1>
+
+    <p><%= JSON.stringify(editedData) %></p>
+
+    <form action="/clubs/<%= editedData.ClubId %>/update/<%= editedData.id %>" method="post">
+        <p>Name</p>
+        <input type="text" name="name" value="<%= editedData.name %>">
+        <p>Position</p>
+        <select name="position">
+            <option selected disabled>--Position--</option>
+            <% ["Striker", "Midfielder", "Defender", "Goalkeeper"].forEach(el => { %>
+                <% if (el == editedData.position) { %>
+                    <option value="<%= el %>" selected><%= el %></option>
+                <% } else { %>
+                    <option value="<%= el %>"><%= el %></option>
+                <% } %>
+            <% }) %>
+        </select>
+        <p>Natonality</p>
+        <select name="nationality">
+            <option selected disabled>--Nationality--</option>
+            <% ["Brazil", "England", "France", "Portugal", "Spain"].forEach(el => { %>
+                <% if (el == editedData.nationality) { %>
+                    <option value="<%= el %>" selected><%= el %></option>
+                <% } else { %>
+                    <option value="<%= el %>"><%= el %></option>
+                <% } %>
+            <% }) %>
+        </select>
+        <p>Rating</p>
+        <input type="number" name="rating" value="<%= editedData.rating %>">
+        <p>Club</p>
+        <select name="ClubId">
+            <option selected disabled>--Club--</option>
+            <% ["Manchester United", "Arsenal", "Sunderland", "Norwich"].forEach((el, i) => { %>
+                    <option value="<%= i + 1 %>"><%= el %></option>
+            <% }) %>
+        </select>
+        <p></p>
+        <button type="submit">Update</button>
+    </form>
+    
+</body>
+</html>

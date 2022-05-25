@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add Player</h1>
+
+    <form action="/players/add" method="post">
+        <p>Name</p>
+        <input type="text" name="name">
+        <p>Position</p>
+        <select name="position">
+            <option selected disabled>--Position--</option>
+            <% ["Striker", "Midfielder", "Defender", "Goalkeeper"].forEach(el => { %>
+                <option value="<%= el %>"><%= el %></option>
+            <% }) %>
+        </select>
+        <p>Natonality</p>
+        <select name="nationality">
+            <option selected disabled>--Nationality--</option>
+            <% ["Brazil", "England", "France", "Portugal", "Spain"].forEach(el => { %>
+                <option value="<%= el %>"><%= el %></option>
+            <% }) %>
+        </select>
+        <p>Rating</p>
+        <input type="number" name="rating">
+        <p>Club</p>
+        <select name="ClubId">
+            <option selected disabled>--Club--</option>
+            <% data.forEach(el => { %>
+                <option value="<%= el.id %>"><%= el.name %></option>
+            <% }) %>
+        </select>
+        <p></p>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
