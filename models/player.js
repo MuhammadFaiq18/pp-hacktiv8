@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Club)
       this.belongsTo(models.User)
     }
+
+    nameAndAge() {
+      return `${this.name} (${this.age})`
+    }
   }
   Player.init({
     name: DataTypes.STRING,
