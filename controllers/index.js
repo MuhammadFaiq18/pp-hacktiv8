@@ -29,26 +29,21 @@ class Controller {
   }
 
   static postLogin(req, res) {
-    // res.send(req.body);
-
     const { userName, password } = req.body;
 
     User.findOne({
       where: { userName },
       include: Profile,
     }).then((dataUser) => {
-      // res.send(dataUser);
       if (dataUser) {
-        const checkPassword = bcryptjs.compareSync(password.toString(), dataUser.password.toString());
-        console.log(checkPassword)
-        console.log(password)
-        console.log(dataUser.password)
+        let salt = bcryptjs.genSaltSync(10);
+        let hash = bcryptjs.hashSync(password, salt)
+        const checkPassword = bcryptjs.compareSync(dataUser.password, hash);
 
         if (checkPassword) {
-          res.send("success")
-          // return res.redirect("/home");
+          res.redirect("home");
         } else {
-          res.send("failed")
+          res.send("failed");
         }
       }
     });
