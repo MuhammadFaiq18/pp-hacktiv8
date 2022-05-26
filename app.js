@@ -6,7 +6,11 @@ const port = 3000;
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => res.render("home"));
+app.get("/home", (req, res) => res.render("home"));
+app.get("/register", Controller.register);
+app.post("/register", Controller.postRegister);
+app.get("/login", Controller.login);
+app.post("/login", Controller.postLogin);
 app.get("/clubs", Controller.club);
 app.get("/clubs/:clubId", Controller.showPlayer)
 app.get("/clubs/:clubId/delete/:playerId", Controller.deletePlayer)

@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>All Player</h1>
-    <a href="/">
+    <a href="/home">
         <button>Back</button>
     </a>
 
@@ -49,7 +49,7 @@
                     <td><%= el.nameAndAge() %></td>
                     <td><%= el.position %></td>
                     <td><%= el.nationality %></td>
-                    <td>(<%= el.rating %>) <%= ratingConverter(el.rating) %></td>
+                    <td><%= ratingConverter(el.rating) %></td>
                     <td><%= el.Club.name %></td>
                 </tr>
             <% }) %>

@@ -1,8 +1,59 @@
 const { Club, Player, User, Profile } = require("../models");
 const ratingConverter = require("../helpers/ratingConverter");
 const { Op } = require("sequelize");
+const bcryptjs = require("bcryptjs");
 
 class Controller {
+  static register(req, res) {
+    res.render("register");
+  }
+
+  static postRegister(req, res) {
+    const { userName, password } = req.body;
+
+    User.create({ userName: userName, password: password }).then(
+      (dataProfile) => {
+        const { name, email } = req.body;
+        return Profile.create({
+          name: name,
+          email: email,
+          UserId: dataProfile.id,
+        });
+      }
+    );
+    res.redirect("/login");
+  }
+
+  static login(req, res) {
+    res.render("login");
+  }
+
+  static postLogin(req, res) {
+    // res.send(req.body);
+
+    const { userName, password } = req.body;
+
+    User.findOne({
+      where: { userName },
+      include: Profile,
+    }).then((dataUser) => {
+      // res.send(dataUser);
+      if (dataUser) {
+        const checkPassword = bcryptjs.compareSync(password.toString(), dataUser.password.toString());
+        console.log(checkPassword)
+        console.log(password)
+        console.log(dataUser.password)
+
+        if (checkPassword) {
+          res.send("success")
+          // return res.redirect("/home");
+        } else {
+          res.send("failed")
+        }
+      }
+    });
+  }
+
   static club(req, res) {
     Club.findAll()
       .then((data) => {
@@ -56,10 +107,13 @@ class Controller {
 
   static storePlayer(req, res) {
     const { name, age, position, nationality, rating, ClubId } = req.body;
-    let data = { name, age, position, nationality, rating, ClubId };
+    let dataPlayer = { name, age, position, nationality, rating, ClubId };
 
-    Player.create(data)
-      .then(res.redirect("/players"))
+    Player.create(dataPlayer)
+      .then((data) => {
+        // res.send(data);
+        res.redirect("/players");
+      })
       .catch((err) => res.send(err));
   }
 
