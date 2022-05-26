@@ -44,7 +44,7 @@ class Controller {
 
         if (checkPassword) {
           req.session.userId = dataUser.id;
-          return res.redirect("home");
+          return res.redirect("/");
         } else {
           const error = "Invalid username or password";
           return res.redirect(`/login?error=${error}`);
@@ -56,7 +56,7 @@ class Controller {
   static logout(req, res) {
     req.session.destroy((err) => {
       if (err) {
-        return res.redirect("/home");
+        return res.redirect("/");
       } else {
         res.redirect("/login");
       }
