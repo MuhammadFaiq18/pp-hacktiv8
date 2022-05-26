@@ -11,8 +11,8 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      age: {
-        type: Sequelize.INTEGER
+      email: {
+        type: Sequelize.STRING
       },
       isAdmin: {
         type: Sequelize.BOOLEAN
