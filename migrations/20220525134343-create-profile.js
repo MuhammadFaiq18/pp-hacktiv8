@@ -14,6 +14,9 @@ module.exports = {
       age: {
         type: Sequelize.INTEGER
       },
+      isAdmin: {
+        type: Sequelize.BOOLEAN
+      },
       UserId: {
         type: Sequelize.INTEGER,
         references: {model: {tableName: "Users"}}
