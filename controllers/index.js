@@ -15,6 +15,7 @@ class Controller {
     Player.findAll({ include: Club })
       .then((data) => {
         res.render("allPlayer", { data });
+        res.send(data)
       })
       .catch((err) => {
         res.send(err);
@@ -42,8 +43,8 @@ class Controller {
   }
 
   static storePlayer(req, res) {
-    const { name, position, nationality, rating, ClubId } = req.body;
-    let data = { name, position, nationality, rating, ClubId };
+    const { name, age, position, nationality, rating, ClubId } = req.body;
+    let data = { name, age, position, nationality, rating, ClubId };
 
     Player.create(data)
       .then(res.redirect("/players"))
@@ -79,11 +80,12 @@ class Controller {
 
   static postUpdatePlayer(req, res) {
     const { clubId, playerId } = req.params;
-    const { name, position, nationality, rating, ClubId } = req.body;
+    const { name, age, position, nationality, rating, ClubId } = req.body;
 
     Player.update(
       {
         name,
+        age,
         position,
         nationality,
         rating,

@@ -14,6 +14,7 @@ module.exports = {
     let data = [
       {
         name: "Rooney",
+        age: 33, 
         position: "Striker",
         nationality: "England",
         rating: 92,
@@ -24,6 +25,7 @@ module.exports = {
       },
       {
         name: "Ronaldo",
+        age: 35, 
         position: "Striker",
         nationality: "Portugal",
         rating: 90,
@@ -34,8 +36,9 @@ module.exports = {
       },
       {
         name: "Hazard",
+        age: 24, 
         position: "Midfielder",
-        nationality: "Belgium",
+        nationality: "France",
         rating: 85,
         ClubId: 2,
         UserId: 1,
@@ -44,8 +47,9 @@ module.exports = {
       },
       {
         name: "Bale",
+        age: 29, 
         position: "Striker",
-        nationality: "Wales",
+        nationality: "Spain",
         rating: 88,
         ClubId: 3,
         UserId: 1,
@@ -54,8 +58,9 @@ module.exports = {
       },
       {
         name: "Son",
+        age: 25, 
         position: "Midfielder",
-        nationality: "South Korea",
+        nationality: "Brazil",
         rating: 81,
         ClubId: 4,
         UserId: 1,
