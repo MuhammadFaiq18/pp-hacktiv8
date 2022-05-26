@@ -15,6 +15,21 @@
     <a href="/players/add">
         <button>Add Player</button>
     </a>
+
+    <hr>
+
+    <form action="/players" method="get">
+        <select name="position">
+            <option selected disabled>--Position--</option>
+            <option value="Striker">Striker</option>
+            <option value="Midfielder">Midfielder</option>
+            <option value="Defender">Defender</option>
+            <option value="Goalkeeper">Goalkeeper</option>
+          </select>
+        <button type="submit">Filter</button>
+    </form>
+
+    <hr>
     
     <table border="1">
         <thead>
@@ -31,10 +46,10 @@
             <% data.forEach((el, i) => { %>
                 <tr>
                     <td><%= i + 1 %></td>
-                    <td><%= el.name %></td>
+                    <td><%= el.nameAndAge() %></td>
                     <td><%= el.position %></td>
                     <td><%= el.nationality %></td>
-                    <td><%= el.rating %></td>
+                    <td>(<%= el.rating %>) <%= ratingConverter(el.rating) %></td>
                     <td><%= el.Club.name %></td>
                 </tr>
             <% }) %>

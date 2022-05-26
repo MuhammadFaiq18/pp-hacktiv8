@@ -1,4 +1,6 @@
 const { Club, Player, User, Profile } = require("../models");
+const ratingConverter = require("../helpers/ratingConverter");
+const { Op } = require("sequelize");
 
 class Controller {
   static club(req, res) {
@@ -12,10 +14,20 @@ class Controller {
   }
 
   static allPlayer(req, res) {
-    Player.findAll({ include: Club })
+    const { position } = req.query;
+    let option = { include: Club };
+
+    if (position) {
+      option.where = {
+        position: {
+          [Op.like]: `%${position}%`,
+        },
+      };
+    }
+
+    Player.findAll(option)
       .then((data) => {
-        res.render("allPlayer", { data });
-        res.send(data)
+        res.render("allPlayer", { data, ratingConverter });
       })
       .catch((err) => {
         res.send(err);
@@ -27,7 +39,7 @@ class Controller {
 
     Club.findByPk(clubId, { include: Player })
       .then((data) => {
-        res.render("playerList", { data });
+        res.render("playerList", { data, ratingConverter });
       })
       .catch((err) => {
         res.send(err);
@@ -67,7 +79,7 @@ class Controller {
 
   static updatePlayer(req, res) {
     const { clubId, playerId } = req.params;
-    
+
     Player.findAll()
       .then((data) => {
         let editedData = data.find((el) => el.id == playerId);
