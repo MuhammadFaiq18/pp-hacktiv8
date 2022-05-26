@@ -36,7 +36,7 @@ const redirectHome = (req, res, next) => {
   }
 }
 
-app.get("/", (req, res) => res.render("home"));
+app.get("/", redirectLogin, (req, res) => res.render("home"));
 app.get("/register", Controller.register);
 app.post("/register", Controller.postRegister);
 app.get("/login", redirectHome, Controller.login);
