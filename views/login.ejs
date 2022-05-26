@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <%- include(`components/heading.ejs`, {title: 'Login'}) %>
 <body>
-    <h1>Login</h1>
 
-    <form action="/login" method="post">
-        <p>Username</p>
-        <input type="text" name="userName">
-        <p>Password</p>
-        <input type="text" name="password">
-        <p></p>
-        <button type="submit">Login</button>
-    </form>
+    <div class="container">
+        <h1 class="text-muted">Login</h1>
     
+        <div class="d-flex justify-content-center">
+            <div class="container">
+                <% if (error) { %>
+                    <p style="color:red">
+                        <%= error %>
+                    </p>
+                <% } %>
+            
+                <form action="/login" method="post">
+                    <p>Username</p>
+                    <input type="text" name="userName">
+                    <p>Password</p>
+                    <input type="text" name="password">
+                    <p></p>
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </form>
+                <p></p>
+                <a href="/register">Register</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
