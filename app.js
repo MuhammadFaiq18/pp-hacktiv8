@@ -30,13 +30,13 @@ const redirectLogin = (req, res, next) => {
 
 const redirectHome = (req, res, next) => {
   if(req.session.userId) {
-    res.redirect("/home")
+    res.redirect("/")
   } else {
     next()
   }
 }
 
-app.get("/home", redirectLogin, (req, res) => res.render("home"));
+app.get("/", (req, res) => res.render("home"));
 app.get("/register", Controller.register);
 app.post("/register", Controller.postRegister);
 app.get("/login", redirectHome, Controller.login);
