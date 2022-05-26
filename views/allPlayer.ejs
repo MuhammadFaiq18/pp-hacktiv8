@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>All Player</h1>
-    <a href="/home">
-        <button>Back</button>
-    </a>
+  <%- include(`components/heading.ejs`, {title: 'Players List'}) %>
+  <body>
+    <div class="container">
+      <h1 class="text-center text-muted">All Player</h1>
+        
+      <div class="row">
+        <div class="col">
+          <a href="/home">
+            <button class="btn btn-warning">Back</button>
+          </a>
 
-    <a href="/players/add">
-        <button>Add Player</button>
-    </a>
+          <a href="/players/add">
+            <button class="btn btn-primary">Add Player</button>
+          </a>
+        </div>
+        <div class="col">
+          <form action="/players" method="get">
+            <select class="form-select-sm" name="position">
+              <option selected disabled>--Position--</option>
+              <option value="Striker">Striker</option>
+              <option value="Midfielder">Midfielder</option>
+              <option value="Defender">Defender</option>
+              <option value="Goalkeeper">Goalkeeper</option>
+            </select>
+            <button class="btn btn-info" type="submit">Filter</button>
+          </form>
+        </div>
+      </div>
 
-    <hr>
-
-    <form action="/players" method="get">
-        <select name="position">
-            <option selected disabled>--Position--</option>
-            <option value="Striker">Striker</option>
-            <option value="Midfielder">Midfielder</option>
-            <option value="Defender">Defender</option>
-            <option value="Goalkeeper">Goalkeeper</option>
-          </select>
-        <button type="submit">Filter</button>
-    </form>
-
-    <hr>
-    
-    <table border="1">
+      <table class="table">
         <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Nationality</th>
-                <th>Rating</th>
-                <th>Club</th>
-            </tr>
+          <tr>
+            <th>No</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Nationality</th>
+            <th>Rating</th>
+            <th>Club</th>
+          </tr>
         </thead>
         <tbody>
-            <% data.forEach((el, i) => { %>
-                <tr>
-                    <td><%= i + 1 %></td>
-                    <td><%= el.nameAndAge() %></td>
-                    <td><%= el.position %></td>
-                    <td><%= el.nationality %></td>
-                    <td><%= ratingConverter(el.rating) %></td>
-                    <td><%= el.Club.name %></td>
-                </tr>
-            <% }) %>
+          <% data.forEach((el, i) => { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= el.nameAndAge() %></td>
+            <td><%= el.position %></td>
+            <td><%= el.nationality %></td>
+            <td><%= ratingConverter(el.rating) %></td>
+            <td><%= el.Club.name %></td>
+          </tr>
+          <% }) %>
         </tbody>
-    </table>
-</body>
+      </table>
+    </div>
+  </body>
 </html>

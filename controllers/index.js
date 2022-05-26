@@ -25,7 +25,9 @@ class Controller {
   }
 
   static login(req, res) {
-    res.render("login");
+    const { error } = req.query;
+
+    res.render("login", { error });
   }
 
   static postLogin(req, res) {
@@ -37,14 +39,26 @@ class Controller {
     }).then((dataUser) => {
       if (dataUser) {
         let salt = bcryptjs.genSaltSync(10);
-        let hash = bcryptjs.hashSync(password, salt)
+        let hash = bcryptjs.hashSync(password, salt);
         const checkPassword = bcryptjs.compareSync(dataUser.password, hash);
 
         if (checkPassword) {
-          res.redirect("home");
+          req.session.userId = dataUser.id;
+          return res.redirect("home");
         } else {
-          res.send("failed");
+          const error = "Invalid username or password";
+          return res.redirect(`/login?error=${error}`);
         }
+      }
+    });
+  }
+
+  static logout(req, res) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.redirect("/home");
+      } else {
+        res.redirect("/login");
       }
     });
   }
@@ -105,11 +119,15 @@ class Controller {
     let dataPlayer = { name, age, position, nationality, rating, ClubId };
 
     Player.create(dataPlayer)
-      .then((data) => {
-        // res.send(data);
+      .then(() => {
         res.redirect("/players");
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+        if (err.name == "SequelizeValidationError") {
+          err = err.errors.map((el) => el.message);
+        }
+        res.send(err);
+      });
   }
 
   static deletePlayer(req, res) {
@@ -162,6 +180,9 @@ class Controller {
         res.redirect(`/clubs/${clubId}`);
       })
       .catch((err) => {
+        if (err.name == "SequelizeValidationError") {
+          err = err.errors.map((el) => el.message);
+        }
         res.send(err);
       });
   }
